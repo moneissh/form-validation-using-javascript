@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #bcd5ec;
+    }
+    .container {
+        width: 80%;
+        max-width: 1000px; /* Adjusted max-width for better layout */
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #c7b1e9;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #bfdf9b;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .invalid-feedback {
+        display: block;
+        font-size: 0.9em;
+        color: red;
+    }
+    .btn-register {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .btn-register:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Registration Form</h2>
+            <div class="text-center">
+                <img src='' alt="Placeholder Image" width="80px">
+              </div>
+            <form id="registrationForm" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div class="invalid-feedback">Please enter a valid email address.</div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <div class="invalid-feedback">Please enter your password.</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    <div class="invalid-feedback">Please confirm your password.</div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                    <div class="invalid-feedback">Please enter your phone number.</div>
+                </div>
+                <div class="form-group">
+                    <label for="languages">Languages:</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="java" name="language" value="Java">
+                        <label class="form-check-label" for="java">Java</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="javascript" name="language" value="JavaScript">
+                        <label class="form-check-label" for="javascript">JavaScript</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="python" name="language" value="Python">
+                        <label class="form-check-label" for="python">Python</label>
+                    </div>
+                    <div class="invalid-feedback">Please select at least one language.</div>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender:</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="male" name="gender" value="male" required>
+                        <label class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="female" name="gender" value="female" required>
+                        <label class="form-check-label" for="female">Female</label>
+                    </div>
+                    <div class="invalid-feedback">Please select your gender.</div>
+                </div>
+                <label for="degree">Degree:</label>
+                <select id="degree" onchange="updateCourses()">
+                    <option value="">Select</option>
+                    <option value="BE">BE</option>
+                    <option value="BTECH">B.TECH</option>
+                </select>
+                <div id="degreeError" class="error"></div>
+
+                <label for="course">Course:</label>
+                <select id="course">
+                    <option value="">Select</option>
+                </select>
+                <div id="courseError" class="error"></div><br>
+                
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="agree" required>
+                    <label class="form-check-label" for="agree">I agree to the terms and conditions</label>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" id="submitBtn" class="btn btn-primary btn-register" disabled>Submit</button>
+                </div>
+            </form>
+            <!-- Table to display registration data -->
+            <table id="registrationTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Languages</th>
+                        <th>Gender</th>
+                        <th>Degree</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var phoneInput = document.getElementById('phone');
+        var phoneValue = phoneInput.value.trim(); // Trim any leading or trailing whitespace
+        var phonePattern = /^\d{10}$/; // Regular expression to match exactly 10 digits
+    
+        if (this.checkValidity() && phonePattern.test(phoneValue)) { // Check validity using regular expression
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = phoneValue;
+            var languages = [...document.querySelectorAll('input[name="language"]:checked')].map(lang => lang.value).join(', ');
+            var gender = document.querySelector('input[name="gender"]:checked').value;
+            var degree = document.getElementById('degree').value;
+            var newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${email}</td>
+                <td>${phone}</td>
+                <td>${languages}</td>
+                <td>${gender}</td>
+                <td>${degree}</td>
+            `;
+            document.querySelector('#registrationTable tbody').appendChild(newRow);
+            document.getElementById('registrationTable').style.display = 'table';
+            this.reset();
+        } else {
+            event.stopPropagation();
+            this.classList.add('was-validated');
+            phoneInput.classList.add('is-invalid');
+            var errorDiv = phoneInput.nextElementSibling;
+            errorDiv.innerHTML = 'Please enter a valid 10-digit phone number.';
+            errorDiv.style.display = 'block'; // Show the error message
+        }
+    });
+    
+    document.getElementById('agree').addEventListener('change', function() {
+        var submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = !this.checked;
+    });
+    
+    function updateCourses() {
+        var degree = document.getElementById("degree").value;
+        var coursesDropdown = document.getElementById("course");
+    
+        // Clear existing options
+        coursesDropdown.innerHTML = '<option value="">Select</option>';
+    
+        // Populate courses based on degree selection
+        if (degree === "BE") {
+            var beCourses = ["CSE", "CSD", "MECH", "CHEMICAL", "AUTOMOBILE"];
+            for (var i = 0; i < beCourses.length; i++) {
+                var option = document.createElement("option");
+                option.text = beCourses[i];
+                coursesDropdown.add(option);
+            }
+        } else if (degree === "BTECH") {
+            var btechCourses = ["AI", "FOOD TECH", "IT"];
+            for (var i = 0; i < btechCourses.length; i++) {
+                var option = document.createElement("option");
+                option.text = btechCourses[i];
+                coursesDropdown.add(option);
+            }
+        }
+    }
+    </script>
+    
+</body>
+</html>
